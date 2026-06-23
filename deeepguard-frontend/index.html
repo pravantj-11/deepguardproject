@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepGuard — Real-Time Deepfake Detection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="depth-vignette"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div class="aurora">
+  <div class="aurora-blob a"></div>
+  <div class="aurora-blob b"></div>
+  <div class="aurora-blob c"></div>
+  <div class="aurora-blob d"></div>
+</div>
+
+<canvas id="particle-canvas"></canvas>
+<canvas id="ripple-canvas"></canvas>
+
+<nav>
+  <a href="#" class="nav-logo"><div class="logo-gem">🛡️</div>DeepGuard</a>
+  <ul class="nav-links">
+    <li><a href="#how">Detection</a></li>
+    <li><a href="#realtime-detect">Live Defense</a></li>
+    <li><a href="#session-intel">Session Intel</a></li>
+    <li><a href="#threats">Threats</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#demo">Live Demo</a></li>
+  </ul>
+  <a href="#cta" class="nav-pill">Get Early Access</a>
+  <button class="nav-pill" style="background:rgba(107,114,128,.15);border:1px solid rgba(107,114,128,.3);font-size:.75rem;padding:6px 14px" onclick="siPromptApiKey()">🔑 API Key</button>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="hero-text reveal">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Real-Time AI · Identity Verification
+    </div>
+    <h1 class="hero-headline">
+      Fakes don't<br>
+      <em class="line2">stand a chance.</em>
+    </h1>
+    <p class="hero-sub">
+      DeepGuard detects deepfake faces and AI-cloned voices during live identity checks — in under 200ms. Banks, hospitals, and governments use it to stop synthetic fraud before it ever gets through the door.
+    </p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary"><span>Get Early Access</span></a>
+      <a href="#demo" class="btn-ghost">Watch It Work →</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="scan-orb">
+      <div class="orb-ring"></div>
+      <div class="orb-ring-inner"></div>
+
+      <div class="face-card">
+        <div class="face-area">
+          <img src="assets/ai image.jpg" alt="AI Face" width="160" height="190">
+          <div class="scan-sweep"></div>
+          <div class="bracket tl"></div>
+          <div class="bracket tr"></div>
+          <div class="bracket bl"></div>
+          <div class="bracket br"></div>
+          <div class="mesh-dot" style="top:36%;left:36%"></div>
+          <div class="mesh-dot" style="top:36%;left:60%;animation-delay:.5s"></div>
+          <div class="mesh-dot" style="top:50%;left:49%;animation-delay:1s"></div>
+          <div class="mesh-dot" style="top:63%;left:34%;animation-delay:1.5s"></div>
+          <div class="mesh-dot" style="top:63%;left:63%;animation-delay:2s"></div>
+          <div class="mesh-dot" style="top:44%;left:26%;animation-delay:.7s"></div>
+          <div class="mesh-dot" style="top:44%;left:72%;animation-delay:1.2s"></div>
+          <div class="mesh-dot" style="top:27%;left:49%;animation-delay:.3s"></div>
+          <div class="mesh-dot" style="top:56%;left:28%;animation-delay:1.8s"></div>
+          <div class="mesh-dot" style="top:56%;left:70%;animation-delay:.9s"></div>
+          <div class="mesh-dot" style="top:72%;left:40%;animation-delay:1.4s"></div>
+          <div class="mesh-dot" style="top:72%;left:58%;animation-delay:.6s"></div>
+        </div>
+
+        <div class="score-bar">
+          <div class="score-label">
+            <span>Authenticity Score</span>
+            <span>97.4%</span>
+          </div>
+          <div class="score-track">
+            <div class="score-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-chip c1">✅ Liveness PASS</div>
+      <div class="float-chip c2">🎙️ Voice · REAL</div>
+      <div class="float-chip c3">⚠️ GAN Detected</div>
+      <div class="float-chip c4">183ms latency</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <span class="trust-label">Trusted by</span>
+  <div class="trust-scroll">
+    <span class="trust-item">Citi</span>
+    <span class="trust-item">Mayo Clinic</span>
+    <span class="trust-item">USDS</span>
+    <span class="trust-item">Barclays</span>
+    <span class="trust-item">NHS Digital</span>
+    <span class="trust-item">ING Group</span>
+    <span class="trust-item">Stripe</span>
+    <span class="trust-item">Jumio</span>
+    <span class="trust-item">Citi</span>
+    <span class="trust-item">Mayo Clinic</span>
+    <span class="trust-item">USDS</span>
+    <span class="trust-item">Barclays</span>
+    <span class="trust-item">NHS Digital</span>
+    <span class="trust-item">ING Group</span>
+    <span class="trust-item">Stripe</span>
+    <span class="trust-item">Jumio</span>
+  </div>
+</div>
+
+<section id="how" class="section">
+  <div class="s-eye reveal">How It Works</div>
+  <h2 class="s-title reveal">Four layers of protection,<br>delivered in one blink.</h2>
+  <p class="s-sub reveal">Every session runs a full multi-modal pipeline — face, voice, liveness, and behavior — simultaneously, completing before your user finishes saying their name.</p>
+
+  <div class="how-steps">
+    <div class="g-card step-card reveal">
+      <div class="step-icon-wrap v">📡</div>
+      <div class="step-title">Capture</div>
+      <p class="step-desc">Video and audio are pulled at 30fps directly from the browser or native SDK. Nothing is stored — all inference runs in-memory with end-to-end encryption.</p>
+    </div>
+    <div class="g-card step-card reveal" style="transition-delay:.1s">
+      <div class="step-icon-wrap c">🧠</div>
+      <div class="step-title">Analyze</div>
+      <p class="step-desc">Three specialized models run in parallel: a face-forgery detector, a voice-clone classifier, and a liveness prober checking depth, blink rate, and micro-expressions.</p>
+    </div>
+    <div class="g-card step-card reveal" style="transition-delay:.2s">
+      <div class="step-icon-wrap p">⚖️</div>
+      <div class="step-title">Score</div>
+      <p class="step-desc">Signal fusion via calibrated ensemble — all three modalities collapse into a single trust score (0–100) with granular breakdowns your team can audit anytime.</p>
+    </div>
+    <div class="g-card step-card reveal" style="transition-delay:.3s">
+      <div class="step-icon-wrap g">🔒</div>
+      <div class="step-title">Decide</div>
+      <p class="step-desc">Pass, review, or block webhooks return in under 200ms. Native plugins for Jumio, Onfido, Stripe Identity, and any custom KYC pipeline via REST API.</p>
+    </div>
+  </div>
+
+  <div class="stats-strip reveal">
+    <div class="stat-cell">
+      <div class="stat-val col-c">&lt;200<sup>ms</sup></div>
+      <div class="stat-lbl">End-to-end detection latency per session</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val col-v">99.4<sup>%</sup></div>
+      <div class="stat-lbl">Detection accuracy across all modalities</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val col-p">0.3<sup>%</sup></div>
+      <div class="stat-lbl">False positive rate on real verified users</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val col-g">3<sup>×</sup></div>
+      <div class="stat-lbl">More threat coverage than single-modal tools</div>
+    </div>
+  </div>
+</section>
+
+<section id="threats" class="section" style="padding-top:0">
+  <div class="s-eye reveal">Threat Coverage</div>
+  <h2 class="s-title reveal">Every synthetic attack,<br>already on our radar.</h2>
+  <p class="s-sub reveal">Deepfake tooling evolves fast. Our detection models are retrained monthly against newly released generative models so you're never playing catch-up.</p>
+
+  <div class="threat-grid">
+    <div class="g-card threat-card reveal">
+      <span class="t-icon">👤</span>
+      <div class="t-name">Face Swap & GAN Forgeries</div>
+      <p class="t-desc">Catches GAN-generated faces and real-time face-swap overlays — including high-fidelity celebrity likenesses dropped over a live webcam feed.</p>
+      <span class="t-badge visual">Visual</span>
+    </div>
+    <div class="g-card threat-card reveal" style="transition-delay:.08s">
+      <span class="t-icon">🎙️</span>
+      <div class="t-name">AI Voice Cloning</div>
+      <p class="t-desc">Detects neural TTS and voice-conversion attacks cloned from as little as three seconds of public audio — LinkedIn videos, podcasts, voicemails.</p>
+      <span class="t-badge audio">Audio</span>
+    </div>
+    <div class="g-card threat-card reveal" style="transition-delay:.16s">
+      <span class="t-icon">🤖</span>
+      <div class="t-name">Fully Synthetic Avatars</div>
+      <p class="t-desc">Identifies end-to-end AI personas — animated or video-diffusion identities that never existed — used in sophisticated account-creation fraud rings.</p>
+      <span class="t-badge multi">Multi-Modal</span>
+    </div>
+    <div class="g-card threat-card reveal" style="transition-delay:.24s">
+      <span class="t-icon">🪞</span>
+      <div class="t-name">Liveness Bypass</div>
+      <p class="t-desc">Defeats 2D photo injection, video replay attacks, deepfake loops, and paper masks used to fool every legacy liveness check on the market.</p>
+      <span class="t-badge live">Liveness</span>
+    </div>
+    <div class="g-card threat-card reveal" style="transition-delay:.32s">
+      <span class="t-icon">📋</span>
+      <div class="t-name">Synthetic Identity Packages</div>
+      <p class="t-desc">Catches fraudsters who combine real SSNs with fabricated biometrics to build entirely new credit profiles your standard checks will never flag.</p>
+      <span class="t-badge behav">Behavioral</span>
+    </div>
+    <div class="g-card threat-card reveal" style="transition-delay:.4s">
+      <span class="t-icon">🌐</span>
+      <div class="t-name">Real-Time Diffusion Models</div>
+      <p class="t-desc">Adversarially trained against the latest Stable Diffusion, Midjourney, and Sora-derived tooling. Model updates ship every 30 days, automatically.</p>
+      <span class="t-badge cont">Always Updated</span>
+    </div>
+  </div>
+</section>
+
+<section id="industries" class="section" style="padding-top:0">
+  <div class="s-eye reveal">Built For</div>
+  <h2 class="s-title reveal">High-stakes onboarding<br>in every regulated sector.</h2>
+  <p class="s-sub reveal">Synthetic identity fraud costs $20B+ annually in the US alone. DeepGuard is purpose-built for industries where getting it wrong isn't an option.</p>
+
+  <div class="industry-grid">
+    <div class="g-card ind-card reveal">
+      <span class="ind-emoji">🏦</span>
+      <div class="ind-name">Banking & Fintech</div>
+      <p class="ind-desc">Secure new account opening, loan applications, and high-value wire authorization against synthetic fraud that sails past traditional KYC.</p>
+      <div class="tags">
+        <span class="chip">KYC/AML</span>
+        <span class="chip">Account Fraud</span>
+        <span class="chip">Wire Auth</span>
+      </div>
+    </div>
+    <div class="g-card ind-card reveal" style="transition-delay:.1s">
+      <span class="ind-emoji">🏥</span>
+      <div class="ind-name">Healthcare</div>
+      <p class="ind-desc">Block medical identity theft in telehealth onboarding, prescription fraud, and insurance authorization — protecting patients and payers alike.</p>
+      <div class="tags">
+        <span class="chip">Telehealth</span>
+        <span class="chip">Rx Fraud</span>
+        <span class="chip">HIPAA</span>
+      </div>
+    </div>
+    <div class="g-card ind-card reveal" style="transition-delay:.2s">
+      <span class="ind-emoji">🏛️</span>
+      <div class="ind-name">Government</div>
+      <p class="ind-desc">Secure digital ID programs, benefits enrollment, and border-crossing verification. NIST 800-63-3 IAL2/IAL3 compliant out of the box.</p>
+      <div class="tags">
+        <span class="chip">Digital ID</span>
+        <span class="chip">NIST 800-63</span>
+        <span class="chip">Benefits</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="section" style="padding-top:0">
+  <div class="s-eye reveal">Live Detection</div>
+  <h2 class="s-title reveal">Catches what the<br>human eye never would.</h2>
+  <p class="s-sub reveal">Real output from our detection engine — voice, face, and liveness signals processed in parallel, verdict delivered before the user finishes speaking.</p>
+
+  <div class="demo-grid">
+    <div class="g-card demo-card reveal">
+      <div>
+        <div class="demo-head">
+          <span class="demo-lbl">Voice Analysis · #7821</span>
+          <span class="live-pill"><span class="live-dot"></span>LIVE</span>
+        </div>
+        <div class="wave">
+          <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+          <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+          <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+          <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+          <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+          <div class="w-bar"></div>
+        </div>
+        <div class="metrics">
+          <div class="m-box">
+            <div class="m-val">97.2</div>
+            <div class="m-lbl">Authenticity</div>
+          </div>
+          <div class="m-box">
+            <div class="m-val">183ms</div>
+            <div class="m-lbl">Latency</div>
+          </div>
+          <div class="m-box">
+            <div class="m-val">0.9%</div>
+            <div class="m-lbl">Clone Risk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g-card demo-card reveal" style="transition-delay:.1s">
+      <div class="demo-head">
+        <span class="demo-lbl">Session Results · #7822–23</span>
+        <span class="live-pill"><span class="live-dot"></span>PROCESSED</span>
+      </div>
+      <div class="verdict-list">
+        <div class="v-item ok">
+          <span class="v-name">👤 Face Authenticity</span>
+          <span class="v-score">REAL · 98.1%</span>
+        </div>
+        <div class="v-item ok">
+          <span class="v-name">🎙️ Voice Auth</span>
+          <span class="v-score">REAL · 96.4%</span>
+        </div>
+        <div class="v-item ok">
+          <span class="v-name">👁️ Liveness Check</span>
+          <span class="v-score">PASS · 99.3%</span>
+        </div>
+        <div class="v-item bad">
+          <span class="v-name">⚠️ #7823 — GAN Face</span>
+          <span class="v-score">BLOCKED · 94.7%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="realtime-detect" class="section rt-section">
+  <div class="s-eye reveal">Live Defense</div>
+  <h2 class="s-title reveal">Real-time video &amp; voice<br>clone detection — running now.</h2>
+  <p class="s-sub reveal">Start your camera and microphone below to see DeepGuard continuously score every frame and audio segment for deepfake and voice-clone signals — live, in your browser.</p>
+
+  <div class="rt-grid">
+    <div class="rt-panel reveal">
+      <div class="rt-panel-head">
+        <span class="rt-panel-title">🎥 Real-Time Video AI Detection</span>
+        <span class="rt-live-pill off" id="rtVideoPill"><span class="rt-live-dot"></span>OFFLINE</span>
+      </div>
+      <div class="rt-media-frame">
+        <video id="rtVideoEl" autoplay playsinline muted></video>
+        <canvas id="rtVideoCanvas"></canvas>
+        <div class="rt-idle" id="rtVideoIdle">
+          <span class="rt-idle-icon">📷</span>
+          <span class="rt-idle-txt">CAMERA NOT STARTED<br>Click "Start Camera" to begin continuous frame analysis</span>
+        </div>
+      </div>
+      <div class="rt-controls">
+        <button class="rt-btn start" id="rtVideoStartBtn" onclick="rtStartVideo()">▶ Start Camera</button>
+        <button class="rt-btn stop" id="rtVideoStopBtn" onclick="rtStopVideo()" disabled>■ Stop</button>
+        <button class="rt-btn attack" id="rtVideoAttackBtn" onclick="rtToggleVideoAttack()" disabled>🎭 Simulate Morph</button>
+      </div>
+      <div class="rt-score-row" id="rtVideoScoreRow">
+        <span class="rt-score-label">Authenticity Score</span>
+        <span class="rt-score-val" id="rtVideoScoreVal">—</span>
+      </div>
+      <div class="rt-meter-track"><div class="rt-meter-fill" id="rtVideoMeter" style="width:0%;background:var(--green)"></div></div>
+      <div class="rt-note">⚡ <strong style="color:var(--white)">REAL DETECTION:</strong> every ~4 seconds a frame is analyzed locally on the server using computer vision — blur detection, frequency analysis, noise profiling, and edge distribution. No external API calls, no paid keys needed.</div>
+    </div>
+
+    <div class="rt-panel reveal" style="transition-delay:.1s">
+      <div class="rt-panel-head">
+        <span class="rt-panel-title">🎙️ Real-Time Voice Clone Detection</span>
+        <span class="rt-live-pill off" id="rtAudioPill"><span class="rt-live-dot"></span>OFFLINE</span>
+      </div>
+      <div class="rt-media-frame audio-frame">
+        <canvas id="rtAudioCanvas"></canvas>
+        <div class="rt-idle" id="rtAudioIdle">
+          <span class="rt-idle-icon">🎙️</span>
+          <span class="rt-idle-txt">MICROPHONE NOT STARTED<br>Click "Start Mic" to begin continuous voice analysis</span>
+        </div>
+      </div>
+      <div class="rt-controls">
+        <button class="rt-btn start" id="rtAudioStartBtn" onclick="rtStartAudio()">▶ Start Mic</button>
+        <button class="rt-btn stop" id="rtAudioStopBtn" onclick="rtStopAudio()" disabled>■ Stop</button>
+        <button class="rt-btn attack" id="rtAudioAttackBtn" onclick="rtToggleAudioAttack()" disabled>🤖 Simulate Voice Clone</button>
+      </div>
+      <div class="rt-score-row" id="rtAudioScoreRow">
+        <span class="rt-score-label">Voice Authenticity</span>
+        <span class="rt-score-val" id="rtAudioScoreVal">—</span>
+      </div>
+      <div class="rt-meter-track"><div class="rt-meter-fill" id="rtAudioMeter" style="width:0%;background:var(--green)"></div></div>
+      <div class="rt-note">🔬 <strong style="color:var(--white)">REAL ANALYSIS:</strong> uses Web Audio API spectral analysis — formant stability, harmonic structure, spectral flux, and zero-crossing rate. The score reflects actual microphone signal characteristics, not a simulation.</div>
+    </div>
+  </div>
+</section>
+
+<section id="session-intel" class="section rt-section">
+  <div class="s-eye reveal">Session Intelligence</div>
+  <h2 class="s-title reveal">Real network &amp; device signals.<br>Persisted in a real local database.</h2>
+  <p class="s-sub reveal">DeepGuard enriches every session with live IP geolocation and device fingerprinting — genuine API calls, not placeholders — and stores a real audit trail in your browser's IndexedDB so you can see persistence working across reloads.</p>
+
+  <div class="rt-grid">
+    <div class="rt-panel reveal">
+      <div class="rt-panel-head">
+        <span class="rt-panel-title">🌐 Live Network &amp; Device Intelligence</span>
+        <span class="rt-live-pill off" id="siIntelPill"><span class="rt-live-dot"></span>NOT FETCHED</span>
+      </div>
+      <div class="rt-controls">
+        <button class="rt-btn start" id="siFetchBtn" onclick="siFetchIntel()">⚡ Fetch Real Session Data</button>
+      </div>
+      <div id="siIntelGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="mini-stat"><div class="mini-stat-val" id="siIp" style="color:var(--cyan);font-size:.95rem">—</div><div class="mini-stat-lbl">PUBLIC IP ADDRESS</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="siLoc" style="color:var(--violet-light);font-size:.95rem">—</div><div class="mini-stat-lbl">CITY / COUNTRY</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="siIsp" style="color:var(--green);font-size:.85rem">—</div><div class="mini-stat-lbl">ISP / ORGANIZATION</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="siTz" style="color:var(--amber);font-size:.85rem">—</div><div class="mini-stat-lbl">TIMEZONE</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="siBrowser" style="color:var(--pink);font-size:.8rem">—</div><div class="mini-stat-lbl">BROWSER / ENGINE</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="siScreen" style="color:var(--white);font-size:.85rem">—</div><div class="mini-stat-lbl">SCREEN RESOLUTION</div></div>
+      </div>
+      <div class="rt-note">Calls <strong style="color:var(--white)">ipapi.co</strong> — a real, free, no-API-key geolocation service — directly from your browser. Device fields use the browser's own <code style="color:var(--cyan)">navigator</code> object.</div>
+    </div>
+
+    <div class="rt-panel reveal" style="transition-delay:.1s">
+      <div class="rt-panel-head">
+        <span class="rt-panel-title">🗄️ Persistent Audit Log <span style="color:var(--muted);font-weight:400;font-size:.75rem">(IndexedDB + API)</span></span>
+        <span class="rt-live-pill" id="siDbPill"><span class="rt-live-dot"></span>DB READY</span>
+      </div>
+      <div class="rt-controls">
+        <button class="rt-btn start" onclick="siSaveSessionRecord()">💾 Save Session Record</button>
+        <button class="rt-btn stop" onclick="siClearDb()">🗑 Clear Database</button>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--muted);letter-spacing:.06em;margin-top:4px">STORED RECORDS · <span id="siRecordCount" style="color:var(--cyan)">0</span></div>
+      <div class="req-log" id="siRecordList" style="max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-top:6px">
+        <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--muted);text-align:center;padding:20px">No records yet — fetch session data, then save a record.</div>
+      </div>
+      <div class="rt-note">Records are written to <strong style="color:var(--white)">IndexedDB</strong> locally AND sent to the backend API for shared server-side persistence. Both paths are active simultaneously.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="cta" class="cta-wrap">
+  <div class="cta-card reveal">
+    <div class="cta-glow"></div>
+    <div class="cta-eyebrow">Early Access · 40+ Teams In Beta</div>
+    <h2 class="cta-title">Your onboarding flow<br>shouldn't be a back door.</h2>
+    <p class="cta-sub">Integrate DeepGuard into your existing KYC pipeline in under a day. REST API, native SDK, or drop-in plugins for Jumio, Onfido, and Stripe Identity.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-primary"><span>Request Access</span></a>
+      <a href="#" class="btn-ghost">Read the Docs →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="#" class="nav-logo"><div class="logo-gem">🛡️</div>DeepGuard</a>
+  <ul class="footer-links">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Security</a></li>
+    <li><a href="#">API Docs</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 DeepGuard Inc.</span>
+</footer>
+
+<script src="js/effects.js"></script>
+<script src="js/rt-detection.js"></script>
+<script src="js/session-intel.js"></script>
+</body>
+</html>

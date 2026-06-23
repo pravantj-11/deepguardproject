@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: deepguard
+      POSTGRES_PASSWORD: deepguard
+      POSTGRES_DB: deepguard
+    ports:
+      - "5432:5432"
+    volumes:
+      - deepguard_pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DEEPGUARD_API_KEY: ${DEEPGUARD_API_KEY}
+      DATABASE_URL: postgresql://deepguard:deepguard@db:5432/deepguard
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-*}
+    depends_on:
+      - db
+
+volumes:
+  deepguard_pgdata:
